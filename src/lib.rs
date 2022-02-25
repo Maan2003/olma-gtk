@@ -1,4 +1,5 @@
-#![feature(generic_associated_types)]
+#![feature(generic_associated_types, fn_traits, unboxed_closures)]
+mod messages;
 mod view;
 pub mod views;
 
