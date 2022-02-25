@@ -2,12 +2,12 @@ use std::iter;
 
 use crate::{view::View, AnyView};
 use gtk::prelude::*;
-pub struct Stack<'a> {
+pub struct Box<'a> {
     children: Vec<AnyView<'a>>,
     axis: gtk::Orientation,
 }
 
-impl<'a> Stack<'a> {
+impl<'a> Box<'a> {
     pub fn column() -> Self {
         Self {
             children: Vec::new(),
@@ -26,9 +26,13 @@ impl<'a> Stack<'a> {
         self.children.push(AnyView::new(child));
         self
     }
+
+    pub fn add_child<V: View<'a>>(&mut self, child: V) {
+        self.children.push(AnyView::new(child));
+    }
 }
 
-impl<'a> View<'a> for Stack<'a> {
+impl<'a> View<'a> for Box<'a> {
     fn build(self) -> gtk::Widget {
         let box_ = gtk::Box::new(self.axis, 0);
         for child in self.children {
@@ -59,4 +63,3 @@ impl<'a> View<'a> for Stack<'a> {
         }
     }
 }
-
